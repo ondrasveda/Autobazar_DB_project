@@ -24,6 +24,37 @@ public class CarRepository : ICarRepository
 
     public void ProdejAutaTransakce(int autoId, string jmenoZakaznika)
     {
-        // pridat logiku
+        using (var connection = new MySqlConnection(_connectionString))
+        {
+            connection.Open();
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    var cmdCena = new MySqlCommand("SELECT cena FROM auta WHERE id = @id", connection, transaction);
+                    cmdCena.Parameters.AddWithValue("@id", autoId);
+                    decimal cena = (decimal)cmdCena.ExecuteScalar();
+
+                    var cmdProdej = new MySqlCommand(
+                        "INSERT INTO prodeje (auto_id, zakaznik_jmeno, prodejni_cena) VALUES (@aId, @jmeno, @cena)", 
+                        connection, transaction);
+                    cmdProdej.Parameters.AddWithValue("@aId", autoId);
+                    cmdProdej.Parameters.AddWithValue("@jmeno", jmenoZakaznika);
+                    cmdProdej.Parameters.AddWithValue("@cena", cena);
+                    cmdProdej.ExecuteNonQuery();
+
+                    var cmdUpdate = new MySqlCommand("UPDATE auta SET je_skladem = 0 WHERE id = @id", connection, transaction);
+                    cmdUpdate.Parameters.AddWithValue("@id", autoId);
+                    cmdUpdate.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }

@@ -17,5 +17,14 @@ CREATE TABLE auta (
                       FOREIGN KEY (znacka_id) REFERENCES znacky(id)
 );
 
+CREATE TABLE prodeje (
+                         id INT AUTO_INCREMENT PRIMARY KEY,
+                         auto_id INT,
+                         zakaznik_jmeno VARCHAR(100) NOT NULL,
+                         datum_prodeje DATETIME DEFAULT CURRENT_TIMESTAMP,
+                         prodejni_cena DECIMAL(10, 2),
+                         FOREIGN KEY (auto_id) REFERENCES auta(id)
+);
+
 
 INSERT INTO znacky (nazev) VALUES ('Škoda'), ('Volkswagen'), ('Toyota'), ('BMW');
