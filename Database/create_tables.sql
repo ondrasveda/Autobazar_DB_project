@@ -1,9 +1,6 @@
 create database autobazar;
 use autobazar;
 
-create database autobazar;
-use autobazar;
-    
 CREATE TABLE znacky (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nazev VARCHAR(50) NOT NULL
