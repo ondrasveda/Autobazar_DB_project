@@ -27,20 +27,18 @@ Nejdříve musíte mít kód u sebe v počítači.
 ### 2. Příprava databáze v MySQL Workbench
 Před spuštěním programu musí existovat databáze, se kterou bude komunikovat.
 1. Otevřete **MySQL Workbench** a připojte se ke svému lokálnímu serveru (Local instance).
-2. V horním menu zvolte **File -> Open SQL Script**.
-3. Najděte v projektu složku /Database a v ní soubor s názvem `create_tables.sql` a spusťtě ho v MySQL Workbenchi.
-4. V levém panelu (Schemas) klikněte pravým tlačítkem a dejte **Refresh All**. Měli byste vidět databázi `autobazar` a v ní tabulky.
+2. Najděte v projektu složku /Database a v ní soubor s názvem `create_tables.sql` a spusťtě ho v MySQL Workbenchi, pokud chcete i naplnit tabulky daty tak spusťte i `insert_data.sql`.
+3. V levém panelu (Schemas) klikněte pravým tlačítkem a dejte **Refresh All**. Měli byste vidět databázi `autobazar` a v ní tabulky.
 
 ### 3. Propojení aplikace s databází
 Aplikace musí vědět, jaké máte heslo k MySQL.
 1. V projektu běžte do složky `Configuration` a otevřete soubor `appsettings.json`.
-2. Najděte řádek s `DefaultConnection`.
-3. Přepište hodnotu `user=root` (pokud máte jiného uživatele) a `password=student` (pokud máte jiné heslo).
-4. Soubor uložte (Ctrl+S).
+3. Najděte řádek s `DefaultConnection`.
+4. Přepište hodnotu `user=root`, pokud máte jiného uživatele a `password=student`, pokud máte jiné heslo, `server=localhost`, pokud jste jinde než na localhostu. (`database=autobazar` nepřepisujte pokud neměníte název databáze v `create_tables.sql`)
+6. Soubor uložte (Ctrl+S).
 
-### 4. Spuštění v IDE
-1. Otevřete si vývojové prostředí (doporučeno **JetBrains Rider**).
-2. Otevřete soubor řešení (soubor s příponou `.sln`).
-3. Počkejte, až se načtou všechny balíčky (NuGet packages), hlavně `MySql.Data` a `Microsoft.Extensions.Configuration`.
-4. Stiskněte zelenou šipku **Run**.
-5. Pokud jste vše nastavili správně, otevře se černé okno s hlavním menu aplikace.
+### 4. Spuštění
+1. Otevřete si složku projektu
+2. Jděte do /bin/Release/net8.0/win-x64/publish
+3. Spusťte `AutobazarPV.exe`
+4. Pokud jste vše udělali správně, měla by se pustit konzolová aplikace s možnostmi výběru akcí
